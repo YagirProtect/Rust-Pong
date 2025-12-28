@@ -1,0 +1,9 @@
+{
+  "width": 640,
+  "height": 360,
+  "title": "Pong Of Gods",
+  "fps": 260,
+  "background_color": "1315860",
+  "player_move_speed": 600.0,
+  "ball_move_speed": 700.0
+}

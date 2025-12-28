@@ -51,7 +51,7 @@ impl Drawable for TextLabel{
         let char_h = 8 * scale;
         let spacing = scale;
 
-        let mut x = self.x as i32;   // где рисовать (задай у себя)
+        let mut x = self.x as i32;
         let mut y = self.y as i32;
 
         for ch in self.text.chars() {
@@ -78,7 +78,7 @@ impl Drawable for TextLabel{
                         let px = x + (col as i32) * scale;
                         let py = y + (row as i32) * scale;
 
-                        // рисуем квадрат scale×scale
+                        // rectangle scale*scale
                         for sy in 0..scale {
                             let yy = py + sy;
                             if yy < 0 || yy >= h { continue; }

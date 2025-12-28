@@ -55,7 +55,7 @@ impl Drawable for Rectangle {
         let expected = (sw as usize) * (sh as usize);
         if buffer.len() < expected { return; }
 
-        // левый верх из центра
+        // left up corner
         let half_w = (self.width as i32) / 2;
         let half_h = (self.height as i32) / 2;
 
@@ -64,7 +64,7 @@ impl Drawable for Rectangle {
         let right  = left + self.width as i32;
         let bottom = top + self.height as i32;
 
-        // клиппинг
+        // clipping
         let x0 = left.max(0) as usize;
         let y0 = top.max(0) as usize;
         let x1 = right.min(sw).max(0) as usize;

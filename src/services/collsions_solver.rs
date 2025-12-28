@@ -71,23 +71,23 @@ pub fn solve_collisions(renderers: &mut Vec<Box<dyn Entity>>){
 }
 
 pub fn aabb_normal_and_penetration(a_min: Vec2<f32>, a_max: Vec2<f32>, b_min: Vec2<f32>, b_max: Vec2<f32>)-> Option<(Vec2<f32>, f32)> {
-    // центры
+    // centers
     let a_c = (a_min + a_max) * 0.5;
     let b_c = (b_min + b_max) * 0.5;
 
-    // половинки размеров
+    // halfs
     let a_e = (a_max - a_min) * 0.5;
     let b_e = (b_max - b_min) * 0.5;
 
-    let d = b_c - a_c;               // направление от A к B
-    let ox = a_e.x + b_e.x - d.x.abs(); // overlap по X
-    let oy = a_e.y + b_e.y - d.y.abs(); // overlap по Y
+    let d = b_c - a_c;               // dir from A to B
+    let ox = a_e.x + b_e.x - d.x.abs(); // overlap X
+    let oy = a_e.y + b_e.y - d.y.abs(); // overlap Y
 
     if ox <= 0.0 || oy <= 0.0 {
-        return None; // нет пересечения
+        return None; // does not have a penetration
     }
 
-    // выбираем ось наименьшего проникновения => нормаль столкновения
+    // minimal axis
     if ox < oy {
         let nx = if d.x >= 0.0 { 1.0 } else { -1.0 };
         Some((Vec2::new(nx, 0.0), ox))

@@ -1,4 +1,5 @@
 ﻿use vek::Vec2;
+use crate::classes::c_audio::AudioContext;
 use crate::classes::c_canvas::Canvas;
 use crate::classes::c_config::Config;
 use crate::classes::c_input::Input;
@@ -39,7 +40,7 @@ impl Drawable for Player {
 
 impl Updatable for Player {
     fn has_update(&self) -> bool { true }
-    fn update(&mut self, delta_time: f32, input: &Input, worldContext: &mut WorldContext) {
+    fn update(&mut self, delta_time: f32, input: &Input, worldContext: &mut WorldContext, audio: &mut AudioContext) {
         let mut dir = input.Axis() * self.move_speed * delta_time;
 
         if (math::is_on_bounds_y(&self.rectangle, dir, self.move_limits.x, self.move_limits.y)) {

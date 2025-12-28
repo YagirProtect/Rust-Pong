@@ -1,4 +1,5 @@
 ﻿use vek::{Lerp, Vec2};
+use crate::classes::c_audio::AudioContext;
 use crate::classes::c_canvas::Canvas;
 use crate::classes::c_config::Config;
 use crate::classes::c_input::Input;
@@ -40,7 +41,7 @@ impl Drawable for PlayerBot {
 
 impl Updatable for PlayerBot {
     fn has_update(&self) -> bool { true }
-    fn update(&mut self, delta_time: f32, input: &Input, worldContext : &mut WorldContext) {
+    fn update(&mut self, delta_time: f32, input: &Input, worldContext : &mut WorldContext, audio: &mut AudioContext) {
 
         let mut dir = 0.0;
         if (worldContext.get_ball_position().y > self.rectangle.Y() + self.rectangle.HalfH()/2.0){

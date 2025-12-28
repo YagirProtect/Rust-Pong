@@ -9,6 +9,7 @@ use vek::{Vec2, Wrap};
 use rand::Rng;
 use std::f32::consts::TAU;
 use rand::rngs::ThreadRng;
+use crate::classes::c_audio::AudioContext;
 use crate::classes::c_world_context::WorldContext;
 use crate::services::math;
 
@@ -47,7 +48,7 @@ impl Drawable for Ball {
 
 impl Updatable for Ball {
     fn has_update(&self) -> bool { true }
-    fn update(&mut self, delta_time: f32, input: &Input, worldContext : &mut WorldContext) {
+    fn update(&mut self, delta_time: f32, input: &Input, worldContext : &mut WorldContext, audio: &mut AudioContext) {
 
         if (input.AxisRaw() != 0){
             self.isActive = true;
@@ -65,11 +66,11 @@ impl Updatable for Ball {
         }
 
         if (!self.rectangle.get_intersections().has_intersection()) {
-            self.collide_screen_bounds(worldContext);
+            self.collide_screen_bounds(worldContext, audio);
 
         }
         else{
-            self.collide_object();
+            self.collide_object(audio);
         }
         self.speedMult += delta_time * 0.05;
         if (self.speedMult > 1.4){
@@ -100,7 +101,7 @@ impl Ball{
         Vec2::new(a.cos(), a.sin())
     }
 
-    fn collide_object(&mut self) {
+    fn collide_object(&mut self, audio: &mut AudioContext) {
         let normal = self.rectangle.get_intersections().get_normal();
         let additionVel = self.rectangle.get_intersections().velocity() * 0.1;
         let penetration = self.rectangle.get_intersections().get_penetration();
@@ -109,7 +110,7 @@ impl Ball{
             normal.x * (penetration + 0.01),
             normal.y * (penetration + 0.01)
         );
-
+        audio.beep_ball();
         self.move_dir = self.move_dir.reflected(normal) + additionVel;
         self.move_dir.normalize();
 
@@ -122,22 +123,30 @@ impl Ball{
         }
     }
 
-    fn collide_screen_bounds(&mut self, world_context: &mut WorldContext) {
+    fn collide_screen_bounds(&mut self, world_context: &mut WorldContext, audio: &mut AudioContext) {
         if (self.rectangle.Y() + self.rectangle.HalfH() >= self.move_limits_y.y) {
             let penetration = self.rectangle.Y() + self.rectangle.HalfH() - self.move_limits_y.y;
             self.rectangle.move_rect_pos(0.0, -penetration + 0.1);
 
-            self.move_dir = self.move_dir.reflected(math::get_up_limit_normal())
+            self.move_dir = self.move_dir.reflected(math::get_up_limit_normal());
+            audio.beep_ball();
         }
         if (self.rectangle.Y() - self.rectangle.HalfH() < self.move_limits_y.x) {
             let penetration = self.rectangle.Y() - self.rectangle.HalfH();
             self.rectangle.move_rect_pos(0.0, -penetration + 0.1);
-            self.move_dir = self.move_dir.reflected(math::get_bottom_limit_normal())
+            self.move_dir = self.move_dir.reflected(math::get_bottom_limit_normal());
+            audio.beep_ball();
         }
 
         if (self.rectangle.X() < self.move_limits_x.x || self.rectangle.X() > self.move_limits_x.y) {
 
             world_context.add_scores(self.rectangle.X());
+
+            if (self.rectangle.X() < 0.0){
+                audio.beep_lose();
+            }else{
+                audio.beep_win();
+            }
             
             self.rectangle.change_rect_pos(self.move_limits_x.y / 2.0, self.move_limits_y.y / 2.0);
             self.move_dir = Vec2::zero();

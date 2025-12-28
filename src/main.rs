@@ -8,6 +8,8 @@ use minifb::{Key, Window, WindowOptions};
 use std::time::Instant;
 use crate::classes::e_current_scene::CurrentScene;
 use classes::scenes::e_scene_id::SceneId;
+use crate::classes::c_audio::AudioContext;
+use crate::classes::scenes::c_credits_scene::CreditsScene;
 use crate::classes::scenes::c_game_scene::GameScene;
 use crate::classes::scenes::c_menu_scene::MenuScene;
 use crate::classes::scenes::t_scene_result::SceneResult;
@@ -18,19 +20,21 @@ fn main() {
     config.read_file();
     let mut canvas = Canvas::new(&mut config);
     let mut input = Input::new();
+    let mut audio = AudioContext::new();
 
 
-    render_loop(config, &mut canvas, &mut input);
+    render_loop(config, &mut canvas, &mut input, &mut audio);
 }
 
 fn make_scene(id: SceneId, config: &Config, canvas: &mut Canvas) -> Box<dyn SceneResult> {
     match id {
         SceneId::Game => Box::new(GameScene::new(config, canvas)),
         SceneId::Menu => Box::new(MenuScene::new(config, canvas)),
+        SceneId::Credits => Box::new(CreditsScene::new(config, canvas))
     }
 }
 
-fn render_loop(config: Config, canvas: &mut Canvas, input: &mut Input){
+fn render_loop(config: Config, canvas: &mut Canvas, input: &mut Input, audio: &mut AudioContext){
 
     let width = config.Width() as usize;
     let height = config.Height() as usize;
@@ -47,7 +51,7 @@ fn render_loop(config: Config, canvas: &mut Canvas, input: &mut Input){
 
     let mut scene: Box<dyn SceneResult> = make_scene(SceneId::Menu, &config, canvas);
 
-    while window.is_open() && !window.is_key_down(Key::Escape) {
+    while window.is_open(){
 
         let mut delta_time = 0.0;
         {
@@ -64,13 +68,15 @@ fn render_loop(config: Config, canvas: &mut Canvas, input: &mut Input){
 
         canvas.clear(&mut buffer);
         scene.solve_physics();
-        match scene.update(delta_time, input){
+        match scene.update(delta_time, input, audio){
             CurrentScene::None => {}
             CurrentScene::Switch(new_scene_id) => {
                 scene = make_scene(new_scene_id, &config, canvas);
                 continue;
             }
-            CurrentScene::Quit => {}
+            CurrentScene::Quit => {
+                break;
+            }
         };
         scene.draw(& mut buffer, &canvas);
 

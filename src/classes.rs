@@ -15,4 +15,6 @@ pub mod c_world_context;
 pub mod c_scoreboard;
 pub mod e_current_scene;
 pub mod scenes;
-mod UI;
+pub mod UI;
+pub mod c_rectangle_noncollide;
+pub mod c_audio;

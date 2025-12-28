@@ -7,7 +7,8 @@ pub struct Input{
     is_input_used: bool,
 
     mouse_position: Vec2<f32>,
-    mouse_is_down: bool
+    mouse_is_down: bool,
+    is_escape_down: bool,
 }
 
 impl Input {
@@ -18,7 +19,7 @@ impl Input {
 
 impl Default for Input {
     fn default() -> Self {
-        Input{axisRaw: 0, axis: 0.0, is_input_used: false, mouse_position: Vec2::new(0.0, 0.0), mouse_is_down: false}
+        Input{axisRaw: 0, axis: 0.0, is_input_used: false, mouse_position: Vec2::new(0.0, 0.0), mouse_is_down: false, is_escape_down: false}
     }
 }
 
@@ -34,6 +35,13 @@ impl Input {
     pub fn IsInputUsed(&self) -> bool{
         return self.is_input_used;
     }
+
+    pub fn MousePosition(&self) -> Vec2<f32>{
+        return self.mouse_position;
+    }
+    pub fn MouseIsDown(&self) -> bool{self.mouse_is_down}
+
+    pub fn IsEscape_down(&self) -> bool{self.is_escape_down}
 }
 
 impl Input{
@@ -50,7 +58,7 @@ impl Input{
             self.axisRaw -= 1;
             self.is_input_used = true;
         }
-
+        self.is_escape_down = window.is_key_down(Key::Escape);
 
         match window.get_mouse_pos(MouseMode::Clamp){
             Some(mousePosition) => {
@@ -58,7 +66,7 @@ impl Input{
             }
             None => {}
         }
-        
+
         self.mouse_is_down = window.get_mouse_down(MouseButton::Left);
 
         self.axis = f32::lerp(self.axis, self.axisRaw as f32, deltaTime * 10.0);

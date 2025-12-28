@@ -6,6 +6,7 @@ use crate::classes::t_collision::{Collision, Intersection};
 use crate::classes::t_drawable::Drawable;
 use crate::classes::t_updatable::Updatable;
 use ::font8x8::{BASIC_FONTS, UnicodeFonts};
+use crate::classes::c_audio::AudioContext;
 
 pub struct TextLabel{
     text: String,
@@ -29,7 +30,7 @@ impl Collision for TextLabel {}
 impl Updatable for TextLabel {
     fn has_update(&self) -> bool {false}
 
-    fn update(&mut self, deltaTime: f32, input: &Input, worldContext: &mut WorldContext) {()}
+    fn update(&mut self, deltaTime: f32, input: &Input, worldContext: &mut WorldContext, audio: &mut AudioContext) {()}
 }
 
 impl Drawable for TextLabel{
@@ -40,8 +41,7 @@ impl Drawable for TextLabel{
         let w = c.Width() as i32;
         let h = c.Height() as i32;
 
-        let mut x = self.x as i32;   // где рисовать (задай у себя)
-        let mut y = self.y as i32;
+
 
 
         let scale = self.scale.max(1) as i32;
@@ -50,6 +50,9 @@ impl Drawable for TextLabel{
         let char_w = 8 * scale;
         let char_h = 8 * scale;
         let spacing = scale;
+
+        let mut x = self.x as i32;   // где рисовать (задай у себя)
+        let mut y = self.y as i32;
 
         for ch in self.text.chars() {
 

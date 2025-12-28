@@ -1,12 +1,16 @@
 ﻿use vek::Vec2;
 use crate::classes::c_ball::Ball;
+use crate::classes::UI::c_label_button::ButtonName;
 
 pub struct WorldContext{
     ballPosition: Vec2<f32>,
     ballVel: Vec2<f32>,
 
     playerScores: u32,
-    enemyScores: u32
+    enemyScores: u32,
+
+
+    uiButtonCalled: ButtonName
 }
 
 
@@ -16,7 +20,8 @@ impl WorldContext{
            ballPosition: Vec2::zero(),
            ballVel: Vec2::zero(),
            playerScores: 0,
-           enemyScores: 0
+           enemyScores: 0,
+           uiButtonCalled: ButtonName::None
        }
     }
 
@@ -52,11 +57,21 @@ impl WorldContext{
             self.playerScores += 1;
         }
     }
-    
+
     pub fn clear(&mut self) {
         self.set_ball_position(0.0, 0.0);
         self.set_ball_vel(0.0, 0.0);
         self.playerScores = 0;
         self.enemyScores = 0;
     }
+
+    pub fn set_ui_action(&mut self, button_name: ButtonName){
+        self.uiButtonCalled = button_name;
+    }
+
+    pub fn clear_ui_action(&mut self) {
+        self.set_ui_action(ButtonName::None)
+    }
+
+    pub fn get_ui_action(&self) -> ButtonName{ self.uiButtonCalled }
 }

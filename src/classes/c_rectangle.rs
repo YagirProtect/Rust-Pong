@@ -36,6 +36,10 @@ impl Rectangle{
     pub fn HalfW(&self) -> f32 {
         self.width as f32/2.0
     }
+
+    pub fn set_color(&mut self, p0: Color) {
+       self.color = p0.to_8bit();
+    }
 }
 
 impl Drawable for Rectangle {

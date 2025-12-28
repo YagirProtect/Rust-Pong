@@ -1,4 +1,5 @@
-﻿use crate::classes::c_canvas::Canvas;
+﻿use crate::classes::c_audio::AudioContext;
+use crate::classes::c_canvas::Canvas;
 use crate::classes::c_color::Color;
 use crate::classes::c_input::Input;
 use crate::classes::UI::c_text_label::TextLabel;
@@ -17,7 +18,7 @@ impl Collision for ScoreBoard {}
 impl Updatable for ScoreBoard {
     fn has_update(&self) -> bool { true }
 
-    fn update(&mut self, deltaTime: f32, input: &Input, worldContext: &mut WorldContext) {
+    fn update(&mut self, deltaTime: f32, input: &Input, worldContext: &mut WorldContext, audio: &mut AudioContext) {
         self.playerScores.update_text(worldContext.get_player_scores());
         self.enemyScores.update_text(worldContext.get_enemy_scores());
     }

@@ -1,4 +1,5 @@
-﻿use crate::classes::c_canvas::Canvas;
+﻿use crate::classes::c_audio::AudioContext;
+use crate::classes::c_canvas::Canvas;
 use crate::classes::c_config::Config;
 use crate::classes::c_input::Input;
 use crate::classes::c_world_context::WorldContext;
@@ -7,7 +8,7 @@ use crate::classes::t_drawable::Drawable;
 
 pub trait SceneResult: Drawable {
     fn new(config: &Config, canvas: &mut Canvas) -> Self where Self: Sized;
-    fn update(&mut self, dt: f32, input: &Input) -> CurrentScene;
+    fn update(&mut self, dt: f32, input: &Input, audio: &mut AudioContext) -> CurrentScene;
     fn solve_physics(&mut self);
     fn clear_solve_physics(&mut self);
 

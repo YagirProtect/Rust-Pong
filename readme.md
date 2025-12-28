@@ -1,8 +1,17 @@
-# PONG (Rust + minifb)
+# Mega Pong (Rust + minifb)
 
-A small Pong game written in Rust **without a full game engine**: pixel framebuffer rendering via **minifb**, a tiny scene/entity setup, simple AABB collisions, a basic bot, and bitmap text via **font8x8**.
+A small Pong game written in Rust **without a full game engine**: pixel framebuffer rendering via **minifb**, a tiny scene/entity setup, simple AABB collisions, a basic bot, and bitmap UI text via **font8x8**.
 
-This project is mainly a hands-on learning sandbox: understanding Rust ownership/borrowing in a real loop, building a render pipeline, update loop, collisions, and minimal UI.
+This project is primarily a practical playground to learn Rust ownership/borrowing in a real-time game loop while keeping the codebase small and hackable.
+
+---
+
+## Screenshots
+
+<p float="left">
+  <img src="sc_1.png" width="49%" />
+  <img src="sc_2.png" width="49%" />
+</p>
 
 ---
 
@@ -18,10 +27,10 @@ This project is mainly a hands-on learning sandbox: understanding Rust ownership
   - `Ball`
   - `PlayerBot` (AI)
 - Collisions:
-  - AABB intersection check (`check_intersection`)
-  - collision normal + penetration (`aabb_normal_and_penetration`)
-  - collision solver (`solve_collisions`)
-- Text:
+  - AABB intersection check
+  - collision normal + penetration
+  - collision solver
+- Text/UI:
   - `TextLabel` rendered with **font8x8** (8×8) with scaling (`scale`)
 - Scenes:
   - `GameScene` holding `Vec<Box<dyn Entity>>`

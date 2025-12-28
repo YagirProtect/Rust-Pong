@@ -47,6 +47,7 @@ This project is primarily a practical playground to learn Rust ownership/borrowi
 - `serde`, `serde_json` — config
 - `font8x8` — 8×8 bitmap font
 - `lerp` — interpolation helpers (where needed)
+- `rodio` — for beeps
 
 ---
 

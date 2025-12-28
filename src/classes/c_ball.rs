@@ -1,17 +1,17 @@
-﻿use crate::classes::c_canvas::Canvas;
+﻿use crate::classes::c_audio::AudioContext;
+use crate::classes::c_canvas::Canvas;
 use crate::classes::c_config::Config;
 use crate::classes::c_input::Input;
 use crate::classes::c_rectangle::Rectangle;
+use crate::classes::c_world_context::WorldContext;
 use crate::classes::t_collision::{Collision, Intersection};
 use crate::classes::t_drawable::Drawable;
 use crate::classes::t_updatable::Updatable;
-use vek::{Vec2, Wrap};
+use crate::services::math;
+use rand::rngs::ThreadRng;
 use rand::Rng;
 use std::f32::consts::TAU;
-use rand::rngs::ThreadRng;
-use crate::classes::c_audio::AudioContext;
-use crate::classes::c_world_context::WorldContext;
-use crate::services::math;
+use vek::Vec2;
 
 pub struct Ball{
     rectangle: Rectangle,

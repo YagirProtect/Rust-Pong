@@ -1,6 +1,5 @@
-﻿use vek::Vec2;
-use crate::classes::c_ball::Ball;
-use crate::classes::UI::c_label_button::ButtonName;
+﻿use crate::classes::UI::c_label_button::ButtonName;
+use vek::Vec2;
 
 pub struct WorldContext{
     ballPosition: Vec2<f32>,

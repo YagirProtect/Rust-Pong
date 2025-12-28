@@ -1,5 +1,4 @@
-﻿use vek::{Lerp, Vec2};
-use crate::classes::c_audio::AudioContext;
+﻿use crate::classes::c_audio::AudioContext;
 use crate::classes::c_canvas::Canvas;
 use crate::classes::c_color::Color;
 use crate::classes::c_input::Input;
@@ -7,9 +6,9 @@ use crate::classes::c_rectangle::Rectangle;
 use crate::classes::c_world_context::WorldContext;
 use crate::classes::t_collision::Collision;
 use crate::classes::t_drawable::Drawable;
-use crate::classes::t_entity::Entity;
 use crate::classes::t_updatable::Updatable;
 use crate::classes::UI::c_text_label::TextLabel;
+use vek::{Lerp, Vec2};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ButtonName{

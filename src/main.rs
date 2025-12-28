@@ -1,18 +1,21 @@
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 mod services;
 mod classes;
 
+use std::str::FromStr;
+use crate::classes::c_audio::AudioContext;
 use crate::classes::c_canvas::Canvas;
 use crate::classes::c_config::Config;
 use crate::classes::c_input::Input;
-use minifb::{Key, Window, WindowOptions};
-use std::time::Instant;
 use crate::classes::e_current_scene::CurrentScene;
-use classes::scenes::e_scene_id::SceneId;
-use crate::classes::c_audio::AudioContext;
 use crate::classes::scenes::c_credits_scene::CreditsScene;
 use crate::classes::scenes::c_game_scene::GameScene;
 use crate::classes::scenes::c_menu_scene::MenuScene;
 use crate::classes::scenes::t_scene_result::SceneResult;
+use classes::scenes::e_scene_id::SceneId;
+use minifb::{Window, WindowOptions};
+use std::time::Instant;
 
 fn main() {
 
@@ -44,6 +47,16 @@ fn render_loop(config: Config, canvas: &mut Canvas, input: &mut Input, audio: &m
         .unwrap_or_else(|e| {
             panic!("{}", e);
         });
+
+    #[cfg(target_os = "windows")]
+    {
+        // путь относительно текущей рабочей директории
+        // например: assets/icon.ico
+        if let Ok(icon) = minifb::Icon::from_str("assets/icon.ico") {
+            window.set_icon(icon);
+        }
+    }
+    
     window.set_target_fps(config.Fps() as usize);
 
     let mut last = Instant::now();

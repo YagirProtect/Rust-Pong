@@ -1,12 +1,12 @@
-﻿use crate::classes::c_canvas::Canvas;
+﻿use crate::classes::c_audio::AudioContext;
+use crate::classes::c_canvas::Canvas;
 use crate::classes::c_color::Color;
 use crate::classes::c_input::Input;
 use crate::classes::c_world_context::WorldContext;
-use crate::classes::t_collision::{Collision, Intersection};
+use crate::classes::t_collision::Collision;
 use crate::classes::t_drawable::Drawable;
 use crate::classes::t_updatable::Updatable;
-use ::font8x8::{BASIC_FONTS, UnicodeFonts};
-use crate::classes::c_audio::AudioContext;
+use ::font8x8::{UnicodeFonts, BASIC_FONTS};
 
 pub struct TextLabel{
     text: String,

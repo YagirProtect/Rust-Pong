@@ -50,13 +50,12 @@ fn render_loop(config: Config, canvas: &mut Canvas, input: &mut Input, audio: &m
 
     #[cfg(target_os = "windows")]
     {
-        // путь относительно текущей рабочей директории
-        // например: assets/icon.ico
+        // path to icon
         if let Ok(icon) = minifb::Icon::from_str("assets/icon.ico") {
             window.set_icon(icon);
         }
     }
-    
+
     window.set_target_fps(config.Fps() as usize);
 
     let mut last = Instant::now();

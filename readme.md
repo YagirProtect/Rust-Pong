@@ -4,12 +4,15 @@ A small Pong game written in Rust **without a full game engine**: pixel framebuf
 
 This project is primarily a practical playground to learn Rust ownership/borrowing in a real-time game loop while keeping the codebase small and hackable.
 
+<b>Created without vibecoding</b>
+
 ---
 
 ## Screenshots
 
 <p float="left">
   <img src="/screenshots/sc_1.png" width="49%" />
+  -
   <img src="/screenshots/sc_2.png" width="49%" />
 </p>
 

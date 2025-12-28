@@ -1,10 +1,13 @@
-﻿use minifb::{Key, KeyRepeat, Window};
-use vek::Lerp;
+﻿use minifb::{Key, KeyRepeat, MouseButton, MouseMode, Window};
+use vek::{Lerp, Vec2};
 
 pub struct Input{
     axisRaw: i8,
     axis: f32,
     is_input_used: bool,
+
+    mouse_position: Vec2<f32>,
+    mouse_is_down: bool
 }
 
 impl Input {
@@ -15,7 +18,7 @@ impl Input {
 
 impl Default for Input {
     fn default() -> Self {
-        Input{axisRaw: 0, axis: 0.0, is_input_used: false}
+        Input{axisRaw: 0, axis: 0.0, is_input_used: false, mouse_position: Vec2::new(0.0, 0.0), mouse_is_down: false}
     }
 }
 
@@ -47,6 +50,17 @@ impl Input{
             self.axisRaw -= 1;
             self.is_input_used = true;
         }
+
+
+        match window.get_mouse_pos(MouseMode::Clamp){
+            Some(mousePosition) => {
+                self.mouse_position = Vec2::new(mousePosition.0 as f32, mousePosition.1 as f32);
+            }
+            None => {}
+        }
+        
+        self.mouse_is_down = window.get_mouse_down(MouseButton::Left);
+
         self.axis = f32::lerp(self.axis, self.axisRaw as f32, deltaTime * 10.0);
     }
 }

@@ -35,7 +35,7 @@ impl Updatable for TextLabel {
 impl Drawable for TextLabel{
     fn is_can_draw(&self) -> bool { true }
 
-    fn draw(&self, buffer: &mut [u32], c: &Canvas) {
+    fn draw(&mut self, buffer: &mut [u32], c: &Canvas) {
 
         let w = c.Width() as i32;
         let h = c.Height() as i32;

@@ -1,7 +1,7 @@
 ﻿use crate::classes::c_canvas::Canvas;
 use crate::classes::c_color::Color;
 use crate::classes::c_input::Input;
-use crate::classes::c_text_label::TextLabel;
+use crate::classes::UI::c_text_label::TextLabel;
 use crate::classes::c_world_context::WorldContext;
 use crate::classes::t_collision::Collision;
 use crate::classes::t_drawable::Drawable;
@@ -26,7 +26,7 @@ impl Updatable for ScoreBoard {
 impl Drawable for ScoreBoard {
     fn is_can_draw(&self) -> bool {true}
 
-    fn draw(&self, buffer: &mut [u32], c: &Canvas) {
+    fn draw(&mut self, buffer: &mut [u32], c: &Canvas) {
         self.playerScores.draw(buffer, c);
         self.enemyScores.draw(buffer, c);
     }

@@ -43,7 +43,7 @@ impl Drawable for Rectangle {
         self.is_can_draw
     }
 
-    fn draw(&self, buffer: &mut [u32], canvas: &Canvas) {
+    fn draw(&mut self, buffer: &mut [u32], canvas: &Canvas) {
         let sw = canvas.Width() as i32;
         let sh = canvas.Height() as i32;
         if sw <= 0 || sh <= 0 { return; }

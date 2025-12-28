@@ -40,7 +40,7 @@ impl Drawable for Ball {
         self.rectangle.is_can_draw()
     }
 
-    fn draw(&self, buffer: &mut [u32], c: &Canvas) {
+    fn draw(&mut self, buffer: &mut [u32], c: &Canvas) {
         self.rectangle.draw(buffer, c);
     }
 }

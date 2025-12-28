@@ -56,7 +56,7 @@ impl Drawable for TextLabel{
 
         for ch in self.text.chars() {
 
-            if ch == '\n' { //Новая строка
+            if ch == '\n' { //new line
                 x = self.x as i32;
                 y += char_h + spacing;
                 continue;

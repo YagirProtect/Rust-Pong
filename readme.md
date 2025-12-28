@@ -9,8 +9,8 @@ This project is primarily a practical playground to learn Rust ownership/borrowi
 ## Screenshots
 
 <p float="left">
-  <img src="sc_1.png" width="49%" />
-  <img src="sc_2.png" width="49%" />
+  <img src=screenshots/sc_1.png" width="49%" />
+  <img src=screenshots/sc_2.png" width="49%" />
 </p>
 
 ---
@@ -32,6 +32,7 @@ This project is primarily a practical playground to learn Rust ownership/borrowi
   - collision solver
 - Text/UI:
   - `TextLabel` rendered with **font8x8** (8×8) with scaling (`scale`)
+  - `ButtonLabel` rendered with **font8x8** (8×8) with scaling (`scale`)
 - Scenes:
   - `GameScene` holding `Vec<Box<dyn Entity>>`
   - `WorldContext` for shared cross-entity data (score/UI signals/etc.)
